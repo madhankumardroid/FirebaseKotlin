@@ -9,4 +9,7 @@
     <string name="login">Login</string>
     <string name="new_user">New User?</string>
     <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="send_reset_link">Send Reset Link</string>
 </resources>

@@ -6,6 +6,7 @@
     <dimen name="spacing_30dp">30dp</dimen>
     <dimen name="spacing_10dp">10dp</dimen>
     <dimen name="spacing_15dp">15dp</dimen>
+    <dimen name="spacing_16dp">16dp</dimen>
     <dimen name="spacing_48dp">48dp</dimen>
     <dimen name="spacing_8dp">8dp</dimen>
     <dimen name="spacing_2dp">2dp</dimen>
@@ -13,4 +14,7 @@
     <!--Font sizes-->
     <dimen name="font_size_16">16sp</dimen>
     <dimen name="font_size_14">14sp</dimen>
+
+    <!--Padding-->
+    <dimen name="padding_5dp">5dp</dimen>
 </resources>
