@@ -1,5 +1,6 @@
 package com.madhan.firebaseauthentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
@@ -14,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
  */
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
-        var viewId = v?.id
+        val viewId = v?.id
         when (viewId) {
             R.id.btn_login -> {
                 //TODO :"Do firebase authentication login"
@@ -24,7 +25,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private lateinit var btnLogin: Button
-    private lateinit var btnSignup: Button
     private lateinit var tvForgotPassword: TextView
     private lateinit var tvSignup: TextView
     private lateinit var tilEmail: TextInputLayout
@@ -37,17 +37,30 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         initUI()
+        initListeners()
         mAuth = FirebaseAuth.getInstance()
     }
 
+    /**
+     * Initialise the UI elements
+     */
     private fun initUI() {
         btnLogin = findViewById(R.id.btn_login)
-        btnSignup = findViewById(R.id.btn_signup)
         tvForgotPassword = findViewById(R.id.tv_forgot_password)
         tvSignup = findViewById(R.id.tv_sign_up)
         tilEmail = findViewById(R.id.til_email)
         tilPassword = findViewById(R.id.til_password)
         tieEmail = findViewById(R.id.tie_email)
-        tiePassword = findViewById(R.id.til_password)
+        tiePassword = findViewById(R.id.tie_password)
+    }
+
+    /**
+     * Method to set listeners for view events like click
+     */
+    private fun initListeners() {
+        tvSignup.setOnClickListener {
+            val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

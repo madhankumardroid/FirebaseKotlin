@@ -12,4 +12,7 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="send_reset_link">Send Reset Link</string>
+    <string name="fields_mandatory">All fields are mandatory</string>
+    <string name="verification_email_sent">Verification email sent to:</string>
+    <string name="verification_email_failure">Failed to send verification email</string>
 </resources>
