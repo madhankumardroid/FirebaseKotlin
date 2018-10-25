@@ -15,4 +15,6 @@
     <string name="fields_mandatory">All fields are mandatory</string>
     <string name="verification_email_sent">Verification email sent to:</string>
     <string name="verification_email_failure">Failed to send verification email</string>
+    <string name="login_failed">Login failed</string>
+    <string name="check_network_connection">Internet connection not available. Please check your network settings</string>
 </resources>

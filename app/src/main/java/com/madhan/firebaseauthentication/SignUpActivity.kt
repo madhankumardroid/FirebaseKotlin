@@ -1,12 +1,10 @@
 package com.madhan.firebaseauthentication
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -57,7 +55,7 @@ class SignUpActivity : AppCompatActivity() {
 
         if (TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName)
                 && TextUtils.isEmpty(emailAddress) && TextUtils.isEmpty(password)) {
-            Toast.makeText(this, getString(R.string.fields_mandatory), Toast.LENGTH_LONG).show()
+            toast(getString(R.string.fields_mandatory))
         } else {
             doAccountCreation()
         }
@@ -88,9 +86,9 @@ class SignUpActivity : AppCompatActivity() {
         val mUser = mAuth!!.currentUser
         mUser!!.sendEmailVerification().addOnCompleteListener(this) {
             if (it.isSuccessful) {
-                Toast.makeText(this, getString(R.string.verification_email_sent) + mUser.email, Toast.LENGTH_SHORT).show()
+                toast(getString(R.string.verification_email_sent) + mUser.email)
             } else {
-                Toast.makeText(this, getString(R.string.verification_email_failure), Toast.LENGTH_SHORT).show()
+                toast(getString(R.string.verification_email_failure))
             }
         }
     }
@@ -109,12 +107,6 @@ class SignUpActivity : AppCompatActivity() {
      * After successful account creation, go to main screen
      */
     private fun gotoMainActivity() {
-        val intent = Intent(this@SignUpActivity, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
+        navigate<MainActivity>()
     }
 }
