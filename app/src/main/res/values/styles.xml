@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/primaryLightColor</item>
     </style>
 
+    <style name="TitleTextStyle">
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContentTextStyle">
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>

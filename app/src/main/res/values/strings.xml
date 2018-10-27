@@ -17,4 +17,6 @@
     <string name="verification_email_failure">Failed to send verification email</string>
     <string name="login_failed">Login failed</string>
     <string name="check_network_connection">Internet connection not available. Please check your network settings</string>
+    <string name="email_verified">Email verified</string>
+    <string name="account_creation_failed">Account creation failed:</string>
 </resources>

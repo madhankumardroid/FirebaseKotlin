@@ -75,6 +75,10 @@ class SignUpActivity : AppCompatActivity() {
                 Log.d(TAG, "Account created successfully")
                 verifyEmail()
                 updateUserInDatabase(mAuth!!.currentUser)
+            } else {
+                Log.e(TAG, "Account creation failed: " + it.exception?.message)
+                toast(getString(R.string.account_creation_failed) + it.exception?.message)
+                btn_sign_up_account.visibility = View.VISIBLE
             }
         }
     }
