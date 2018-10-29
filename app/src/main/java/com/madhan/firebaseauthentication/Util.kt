@@ -16,6 +16,15 @@ inline fun <reified T : Activity> Activity.navigate() {
     startActivity(intent)
 }
 
+
+/**
+ * Method for screen navigation without removing calling activity from backstack
+ */
+inline fun <reified T : Activity> Activity.navigateWithBack() {
+    val intent = Intent(this, T::class.java)
+    startActivity(intent)
+}
+
 /**
  * To check network connection availability
  */

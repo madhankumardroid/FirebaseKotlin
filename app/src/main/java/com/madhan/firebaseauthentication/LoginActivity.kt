@@ -1,6 +1,5 @@
 package com.madhan.firebaseauthentication
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
@@ -63,12 +62,11 @@ class LoginActivity : AppCompatActivity() {
      */
     private fun initListeners() {
         tvSignup.setOnClickListener {
-            val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
-            startActivity(intent)
+            navigateWithBack<SignUpActivity>()
         }
 
         tvForgotPassword.setOnClickListener {
-            //TODO: Need to implement
+            navigateWithBack<ForgotPasswordActivity>()
         }
 
         btnLogin.setOnClickListener {
