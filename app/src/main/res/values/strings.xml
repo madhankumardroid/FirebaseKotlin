@@ -21,4 +21,5 @@
     <string name="account_creation_failed">Account creation failed:</string>
     <string name="enter_email">Enter email</string>
     <string name="email_sent">Email sent</string>
+    <string name="logout">Logout</string>
 </resources>

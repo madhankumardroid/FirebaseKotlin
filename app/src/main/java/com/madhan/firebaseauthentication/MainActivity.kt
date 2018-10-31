@@ -27,6 +27,11 @@ class MainActivity : AppCompatActivity() {
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
+
+        btn_logout.setOnClickListener {
+            mAuth?.signOut()
+            finish()
+        }
     }
 
     /**
