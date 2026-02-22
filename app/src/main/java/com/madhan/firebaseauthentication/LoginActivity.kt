@@ -1,9 +1,9 @@
 package com.madhan.firebaseauthentication
 
 import android.os.Bundle
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View

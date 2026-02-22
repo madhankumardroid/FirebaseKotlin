@@ -1,15 +1,17 @@
 package com.madhan.firebaseauthentication
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
     //Constants
@@ -19,6 +21,14 @@ class SignUpActivity : AppCompatActivity() {
     private var mDatabaseRef: DatabaseReference? = null
     private var mDatabase: FirebaseDatabase? = null
     private var mAuth: FirebaseAuth? = null
+
+    //UI elements
+    private lateinit var btnSignUpAccount: Button
+    private lateinit var progressSignUp: ProgressBar
+    private lateinit var tieFirstName: TextInputEditText
+    private lateinit var tieLastName: TextInputEditText
+    private lateinit var tieSignupEmail: TextInputEditText
+    private lateinit var tieSignupPassword: TextInputEditText
 
     //Global variables
     private var firstName: String? = null
@@ -37,21 +47,28 @@ class SignUpActivity : AppCompatActivity() {
      * Initialise the Firebase references and set click listener for the sign up button
      */
     private fun initialise() {
+        btnSignUpAccount = findViewById(R.id.btn_sign_up_account)
+        progressSignUp = findViewById(R.id.progress_signup)
+        tieFirstName = findViewById(R.id.tie_first_name)
+        tieLastName = findViewById(R.id.tie_last_name)
+        tieSignupEmail = findViewById(R.id.tie_signup_email)
+        tieSignupPassword = findViewById(R.id.tie_signup_password)
+
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseRef = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
-        btn_sign_up_account.setOnClickListener { createAccount() }
+        btnSignUpAccount.setOnClickListener { createAccount() }
     }
 
     /**
      * Initialise the global variables, check values and do account creation
      */
     private fun createAccount() {
-        firstName = tie_first_name.text.toString()
-        lastName = tie_last_name.text.toString()
-        emailAddress = tie_signup_email.text.toString()
-        password = tie_signup_password.text.toString()
+        firstName = tieFirstName.text.toString()
+        lastName = tieLastName.text.toString()
+        emailAddress = tieSignupEmail.text.toString()
+        password = tieSignupPassword.text.toString()
 
         if (TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName)
                 && TextUtils.isEmpty(emailAddress) && TextUtils.isEmpty(password)) {
@@ -65,11 +82,11 @@ class SignUpActivity : AppCompatActivity() {
      * Call the appropriate Firebase method to create the user with email and password
      */
     private fun doAccountCreation() {
-        btn_sign_up_account.visibility = View.GONE
-        progress_signup.visibility = View.VISIBLE
+        btnSignUpAccount.visibility = View.GONE
+        progressSignUp.visibility = View.VISIBLE
 
         mAuth!!.createUserWithEmailAndPassword(emailAddress!!, password!!).addOnCompleteListener(this) {
-            progress_signup.visibility = View.GONE
+            progressSignUp.visibility = View.GONE
 
             if (it.isSuccessful) {
                 Log.d(TAG, "Account created successfully")
@@ -78,7 +95,7 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 Log.e(TAG, "Account creation failed: " + it.exception?.message)
                 toast(getString(R.string.account_creation_failed) + it.exception?.message)
-                btn_sign_up_account.visibility = View.VISIBLE
+                btnSignUpAccount.visibility = View.VISIBLE
             }
         }
     }
