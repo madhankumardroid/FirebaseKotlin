@@ -3,26 +3,21 @@ package com.madhan.firebaseauthentication
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.madhan.firebaseauthentication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivity"
+    private lateinit var binding: ActivityMainBinding
     private var mDatabaseReference: DatabaseReference? = null
     private var mDatabase: FirebaseDatabase? = null
     private var mAuth: FirebaseAuth? = null
 
-    private lateinit var btnLogout: Button
-    private lateinit var tvFirstNameValue: TextView
-    private lateinit var tvLastNameValue: TextView
-    private lateinit var tvEmailAddressValue: TextView
-    private lateinit var tvEmailVerifiedValue: TextView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initialise()
     }
@@ -31,17 +26,11 @@ class MainActivity : AppCompatActivity() {
      * Initialise the firebase references
      */
     private fun initialise() {
-        btnLogout = findViewById(R.id.btn_logout)
-        tvFirstNameValue = findViewById(R.id.tv_first_name_value)
-        tvLastNameValue = findViewById(R.id.tv_last_name_value)
-        tvEmailAddressValue = findViewById(R.id.tv_email_address_value)
-        tvEmailVerifiedValue = findViewById(R.id.tv_email_verified_value)
-
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
-        btnLogout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             mAuth?.signOut()
             finish()
         }
@@ -62,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         val user = mAuth!!.currentUser ?: return
         val userReference = mDatabaseReference!!.child(user.uid)
 
-        tvEmailAddressValue.text = user.email
-        tvEmailVerifiedValue.text = user.isEmailVerified.toString()
+        binding.tvEmailAddressValue.text = user.email
+        binding.tvEmailVerifiedValue.text = user.isEmailVerified.toString()
 
         userReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
@@ -71,8 +60,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(snapShot: DataSnapshot) {
-                tvFirstNameValue.text = snapShot.child("firstName").value as? String ?: ""
-                tvLastNameValue.text = snapShot.child("lastName").value as? String ?: ""
+                binding.tvFirstNameValue.text = snapShot.child("firstName").value as? String ?: ""
+                binding.tvLastNameValue.text = snapShot.child("lastName").value as? String ?: ""
             }
         })
     }

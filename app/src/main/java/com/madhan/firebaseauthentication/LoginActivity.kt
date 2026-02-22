@@ -1,75 +1,49 @@
 package com.madhan.firebaseauthentication
 
 import android.os.Bundle
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.madhan.firebaseauthentication.databinding.ActivityLoginBinding
 
 /**
  * A login screen that offers login via email/password.
  */
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
+    private lateinit var binding: ActivityLoginBinding
 
     //Global variables
     private var email: String? = null
     private var password: String? = null
-
-    //UI elements
-    private lateinit var btnLogin: Button
-    private lateinit var tvForgotPassword: TextView
-    private lateinit var tvSignup: TextView
-    private lateinit var tilEmail: TextInputLayout
-    private lateinit var tieEmail: TextInputEditText
-    private lateinit var tilPassword: TextInputLayout
-    private lateinit var tiePassword: TextInputEditText
-    private lateinit var loginProgress: ProgressBar
 
     //Firebase reference
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        initUI()
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        
         initListeners()
         mAuth = FirebaseAuth.getInstance()
-    }
-
-    /**
-     * Initialise the UI elements
-     */
-    private fun initUI() {
-        btnLogin = findViewById(R.id.btn_login)
-        tvForgotPassword = findViewById(R.id.tv_forgot_password)
-        tvSignup = findViewById(R.id.tv_sign_up)
-        tilEmail = findViewById(R.id.til_email)
-        tilPassword = findViewById(R.id.til_password)
-        tieEmail = findViewById(R.id.tie_email)
-        tiePassword = findViewById(R.id.tie_password)
-        loginProgress = findViewById(R.id.login_progress)
     }
 
     /**
      * Method to set listeners for view events like click
      */
     private fun initListeners() {
-        tvSignup.setOnClickListener {
+        binding.tvSignUp.setOnClickListener {
             navigateWithBack<SignUpActivity>()
         }
 
-        tvForgotPassword.setOnClickListener {
+        binding.tvForgotPassword.setOnClickListener {
             navigateWithBack<ForgotPasswordActivity>()
         }
 
-        btnLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             loginUser()
         }
     }
@@ -79,8 +53,8 @@ class LoginActivity : AppCompatActivity() {
      */
     private fun loginUser() {
         if (checkNetworkConnection()) {
-            email = tieEmail.text.toString()
-            password = tiePassword.text.toString()
+            email = binding.tieEmail.text.toString()
+            password = binding.tiePassword.text.toString()
             if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                 toggleState(false)
 
@@ -107,9 +81,9 @@ class LoginActivity : AppCompatActivity() {
      * Toggle the state of the login button. Also determine the visibility of progress bar
      */
     private fun toggleState(enableView: Boolean) {
-        btnLogin.isEnabled = enableView
-        btnLogin.alpha = if (enableView) 1f else 0.5f
-        loginProgress.visibility = if (enableView) View.GONE else View.VISIBLE
+        binding.btnLogin.isEnabled = enableView
+        binding.btnLogin.alpha = if (enableView) 1f else 0.5f
+        binding.loginProgress.visibility = if (enableView) View.GONE else View.VISIBLE
     }
 
     /**
