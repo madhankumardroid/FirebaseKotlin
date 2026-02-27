@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -35,10 +35,10 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_first_name_title"
         app:layout_constraintLeft_toRightOf="@+id/guideline"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="Madhan kldjf;dsfdhjfdshjfdfdhjfhdjfdjhfdhfjdjhfdfhdhjffgdfdfdfadfdfdfdfdafdfddfdfadfdfdfdfdfdafdfdfd"
+        tools:text="First Name"
         />
 
-    <android.support.constraint.Barrier
+    <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,10 +65,10 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_last_name_title"
         app:layout_constraintLeft_toRightOf="@+id/guideline"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="Kumarjkfldjfdhjfdjkfdsjhfldjfhdhfjdhfdshfhjdsfdsjhkdjkfhjdsfjhk"
+        tools:text="Last Name"
         />
 
-    <android.support.constraint.Barrier
+    <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_last_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,10 +95,10 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_email_address_title"
         app:layout_constraintLeft_toRightOf="@+id/guideline"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="mad@gmail.com lkfdhjfdhjkfdsfdsfdfjkldsfkjdsfkdkjlfdjklfkdfskjdsklj"
+        tools:text="email@example.com"
         />
 
-    <android.support.constraint.Barrier
+    <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -140,4 +140,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

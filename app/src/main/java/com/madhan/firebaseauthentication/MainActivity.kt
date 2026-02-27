@@ -1,21 +1,23 @@
 package com.madhan.firebaseauthentication
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_main.*
+import com.madhan.firebaseauthentication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivity"
+    private lateinit var binding: ActivityMainBinding
     private var mDatabaseReference: DatabaseReference? = null
     private var mDatabase: FirebaseDatabase? = null
     private var mAuth: FirebaseAuth? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initialise()
     }
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         mDatabaseReference = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
-        btn_logout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             mAuth?.signOut()
             finish()
         }
@@ -46,11 +48,11 @@ class MainActivity : AppCompatActivity() {
      * Method to get the user information from firebase and show it in the UI
      */
     private fun getUser() {
-        val user = mAuth!!.currentUser
-        val userReference = mDatabaseReference!!.child(user!!.uid)
+        val user = mAuth!!.currentUser ?: return
+        val userReference = mDatabaseReference!!.child(user.uid)
 
-        tv_email_address_value.text = user.email
-        tv_email_verified_value.text = user.isEmailVerified.toString()
+        binding.tvEmailAddressValue.text = user.email
+        binding.tvEmailVerifiedValue.text = user.isEmailVerified.toString()
 
         userReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
@@ -58,8 +60,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(snapShot: DataSnapshot) {
-                tv_first_name_value.text = snapShot.child("firstName").value as String
-                tv_last_name_value.text = snapShot.child("lastName").value as String
+                binding.tvFirstNameValue.text = snapShot.child("firstName").value as? String ?: ""
+                binding.tvLastNameValue.text = snapShot.child("lastName").value as? String ?: ""
             }
         })
     }

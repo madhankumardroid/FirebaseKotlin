@@ -1,7 +1,7 @@
 package com.madhan.firebaseauthentication
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -9,11 +9,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import com.madhan.firebaseauthentication.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
     //Constants
     private val TAG = "SignUpActivity"
+    private lateinit var binding: ActivitySignUpBinding
 
     //Firebase references
     private var mDatabaseRef: DatabaseReference? = null
@@ -28,7 +29,8 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initialise()
     }
@@ -41,17 +43,17 @@ class SignUpActivity : AppCompatActivity() {
         mDatabaseRef = mDatabase!!.reference.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
-        btn_sign_up_account.setOnClickListener { createAccount() }
+        binding.btnSignUpAccount.setOnClickListener { createAccount() }
     }
 
     /**
      * Initialise the global variables, check values and do account creation
      */
     private fun createAccount() {
-        firstName = tie_first_name.text.toString()
-        lastName = tie_last_name.text.toString()
-        emailAddress = tie_signup_email.text.toString()
-        password = tie_signup_password.text.toString()
+        firstName = binding.tieFirstName.text.toString()
+        lastName = binding.tieLastName.text.toString()
+        emailAddress = binding.tieSignupEmail.text.toString()
+        password = binding.tieSignupPassword.text.toString()
 
         if (TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName)
                 && TextUtils.isEmpty(emailAddress) && TextUtils.isEmpty(password)) {
@@ -65,11 +67,11 @@ class SignUpActivity : AppCompatActivity() {
      * Call the appropriate Firebase method to create the user with email and password
      */
     private fun doAccountCreation() {
-        btn_sign_up_account.visibility = View.GONE
-        progress_signup.visibility = View.VISIBLE
+        binding.btnSignUpAccount.visibility = View.GONE
+        binding.progressSignup.visibility = View.VISIBLE
 
         mAuth!!.createUserWithEmailAndPassword(emailAddress!!, password!!).addOnCompleteListener(this) {
-            progress_signup.visibility = View.GONE
+            binding.progressSignup.visibility = View.GONE
 
             if (it.isSuccessful) {
                 Log.d(TAG, "Account created successfully")
@@ -78,7 +80,7 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 Log.e(TAG, "Account creation failed: " + it.exception?.message)
                 toast(getString(R.string.account_creation_failed) + it.exception?.message)
-                btn_sign_up_account.visibility = View.VISIBLE
+                binding.btnSignUpAccount.visibility = View.VISIBLE
             }
         }
     }
